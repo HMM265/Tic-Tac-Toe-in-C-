@@ -1,0 +1,520 @@
+#include <iostream>
+#include <stdlib.h>  
+#include <time.h>
+using namespace std;
+
+
+bool run = true;
+int steps = 0; //steps determines when things should happen in the while loop
+int move_counter = 0; //determines how many moves have been made
+bool game_finished = false;
+bool selecting = true;
+string the_winner;
+
+
+
+
+
+struct {
+    string shape;
+    string selected_row;
+    string selected_column;
+    int turn;
+    string input;
+    bool winner = false;
+} player;
+
+struct{
+    string shape;
+    string selected_row;
+    string selected_column;
+    string selected_space;
+    bool finding_space = true;
+    bool winner = false;
+} op;
+
+
+string the_board[3][3]= {
+    {"| |","| |","| |"},
+    {"| |","| |","| |"},
+    {"| |","| |","| |"}
+};
+
+string empty_board[3][3]= {
+    {"| |","| |","| |"},
+    {"| |","| |","| |"},
+    {"| |","| |","| |"}
+};
+
+string the_rows[4]=
+{"|#|","|A|","|B|","|C|"};
+
+string the_columns[4]=
+{"|#|","|1|","|2|","|3|"};
+
+
+void op_randomize(){
+    srand (time(NULL));
+                int row_select = rand() % 3;
+                int column_select = rand() % 3;
+                op.selected_space = op.selected_row + op.selected_column;
+}
+
+void draw_board(){
+    cout << "\n" << the_columns[0] << the_columns[1] << the_columns[2] << the_columns[3] << "\n";
+    cout << the_rows[1] << the_board[0][0] << the_board[0][1] << the_board[0][2] << "\n";
+    cout << the_rows[2] << the_board[1][0] << the_board[1][1] << the_board[1][2] << "\n";
+    cout << the_rows[3] << the_board[2][0] << the_board[2][1] << the_board[2][2] << "\n";
+}
+
+void op_place(){
+    while(op.finding_space == true){
+        int row_selected = rand() % 3;
+        int column_selected = rand() % 3;
+
+        if (row_selected == 0){
+            if (column_selected == 0){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+            else if (column_selected == 1){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+            else if (column_selected == 2){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        if (row_selected == 1){
+            if (column_selected == 0){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+            else if (column_selected == 1){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+            else if (column_selected == 2){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        if (row_selected == 2){
+            if (column_selected == 0){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+            else if (column_selected == 1){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+            else if (column_selected == 2){
+                if (the_board[row_selected][column_selected] == "| |"){
+                    the_board[row_selected][column_selected] = op.shape;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+    }
+}
+
+
+void check_player(string input){
+    while (selecting == true){
+        if (input == "A1"){
+        if (the_board[0][0] == "| |"){
+            the_board[0][0] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "A2"){
+        if (the_board[0][1] == "| |"){
+            the_board[0][1] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "A3"){
+        if (the_board[0][2] == "| |"){
+            the_board[0][2] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "B1"){
+        if (the_board[1][0] == "| |"){
+            the_board[1][0] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "B2"){
+        if (the_board[1][1] == "| |"){
+            the_board[1][1] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "B3"){
+        if (the_board[1][2] == "| |"){
+            the_board[1][2] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "C1"){
+        if (the_board[2][0] == "| |"){
+            the_board[2][0] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "C2"){
+        if (the_board[2][1] == "| |"){
+            the_board[2][1] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else if (input == "C3"){
+        if (the_board[2][2] == "| |"){
+            the_board[2][2] = player.shape;
+            selecting = false;
+        }
+        else{
+            cout << "\nThe space is already filled";
+            cin >> input;
+        }
+    }
+    else{
+        cout << "\nMake sure you enter the row letter and the column number\nCapitalize the letters\n";
+        cin >> input;
+    }
+    }
+    
+}
+
+void check_win(){
+    if (the_board[0][0] == "|X|"){
+        if (the_board[0][1] == "|X|"){
+            if (the_board[0][2] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[1][0] == "|X|"){
+        if (the_board[1][1] == "|X|"){
+            if (the_board[1][2] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[2][0] == "|X|"){
+        if (the_board[2][1] == "|X|"){
+            if (the_board[2][2] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[0][0] == "|X|"){
+        if (the_board[1][0] == "|X|"){
+            if (the_board[2][0] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[0][1] == "|X|"){
+        if (the_board[1][1] == "|X|"){
+            if (the_board[2][1] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[0][2] == "|X|"){
+        if (the_board[1][2] == "|X|"){
+            if (the_board[2][2] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[0][0] == "|X|"){
+        if (the_board[1][1] == "|X|"){
+            if (the_board[2][2] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[2][0] == "|X|"){
+        if (the_board[1][1] == "|X|"){
+            if (the_board[0][2] == "|X|"){
+                the_winner = "X";
+            }
+        }
+    }
+    if (the_board[0][0] == "|O|"){
+        if (the_board[0][1] == "|O|"){
+            if (the_board[0][2] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[1][0] == "|O|"){
+        if (the_board[1][1] == "|O|"){
+            if (the_board[1][2] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[2][0] == "|O|"){
+        if (the_board[2][1] == "|O|"){
+            if (the_board[2][2] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[0][0] == "|O|"){
+        if (the_board[1][0] == "|O|"){
+            if (the_board[2][0] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[0][1] == "|O|"){
+        if (the_board[1][1] == "|O|"){
+            if (the_board[2][1] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[0][2] == "|O|"){
+        if (the_board[1][2] == "|O|"){
+            if (the_board[2][2] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[0][0] == "|O|"){
+        if (the_board[1][1] == "|O|"){
+            if (the_board[2][2] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    if (the_board[2][0] == "|O|"){
+        if (the_board[1][1] == "|O|"){
+            if (the_board[0][2] == "|O|"){
+                the_winner = "O";
+            }
+        }
+    }
+    
+    
+
+    if (the_winner == "O"){
+        if (player.shape == "|O|"){
+            cout << "\nYou win \nDo you want to play again y or n";
+            player.winner = true;
+            player.turn = 2;
+        }
+        else if (op.shape == "|O|"){
+            cout << "\nYou lose \nDo you want to play again y or n";
+            op.winner = true;
+            player.turn = 2;
+        }
+    }
+    else if (the_winner == "X"){
+        if (player.shape == "|X|"){
+            cout << "\nYou win \nDo you want to play again y or n";
+            player.winner = true;
+            player.turn = 2;
+        }
+        else if (op.shape == "|X|"){
+            cout << "\nYou lose \nDo you want to play again y or n";
+            op.winner = true;
+            player.turn = 2;
+        }
+    }
+    else if (move_counter == 9){
+        cout << "\nIt's a tie \nDo you want to play again y or n";
+        player.turn = 2;
+    }
+
+
+}
+
+void restart_game(){
+    steps = 0;
+    move_counter = 0;
+    player.input = "";
+    player.shape = "";
+    op.shape = "";
+    game_finished = false;
+    op.finding_space = true;
+    selecting = true;
+    the_winner = "";
+    the_board[0][0] = "| |";
+    the_board[0][1] = "| |";
+    the_board[0][2] = "| |";
+    the_board[1][0] = "| |";
+    the_board[1][1] = "| |";
+    the_board[1][2] = "| |";
+    the_board[2][0] = "| |";
+    the_board[2][1] = "| |";
+    the_board[2][2] = "| |";
+}
+
+void end_game(){
+    cout << "\nGoodbye!";
+    steps = 4;
+}
+
+int main(){
+    srand (time(NULL));
+    while (run == true){
+        if (steps == 0){
+            cout << "\nWelcome to tic-tac-toe \nYou will first start by picking Os or Xs\nX goes first, O goes second\nMake sure you type UPERCASE\nYou can type end at anytime to end the game\n";
+            steps += 1;
+        }
+        else if (steps == 1){
+            cin >> player.input;
+            string picked = player.input;
+            if (picked == "X"){
+                op.shape = "|O|";
+                player.shape = "|X|";
+                player.turn = 1;
+                cout << "\nYou selected X\n";
+                steps += 1;
+            }
+            else if (picked == "O"){
+                op.shape = "|X|";
+                player.shape = "|O|";
+                player.turn = 0;
+                cout << "\nYou selected O\n";
+                steps += 1;
+            }
+            else if (picked == "end"){
+                end_game();
+                break;
+            }
+            else{
+                cout << "\nPlease enter a X or O";
+            }
+        }
+        else if (steps == 2){
+            draw_board();
+            check_win();
+ 
+            if (player.turn == 0){
+                cout << "It's your opponent's turn\n";
+                op_place();
+                move_counter += 1;
+                op.finding_space = true;
+                player.turn = 1;
+                
+            
+            }
+            else if (player.turn == 1){
+                cout << "It's your turn\nEnter the row letter and column number\n";
+                cin >> player.input;
+                if (player.input == "end"){
+                    end_game();
+                    break;
+                }
+                move_counter += 1;
+                check_player(player.input);
+                selecting = true;
+                player.turn = 0;
+                
+
+            }
+            else if (player.turn == 2){
+                steps += 1;
+            }
+
+        }
+        else if (steps == 3){
+            cin >> player.input;
+            if (player.input == "y"){
+                restart_game();
+            }
+            else if (player.input == "n"){
+                end_game();
+                break;
+            }
+            else {
+                cout << "\n Type y to restart the game or type n to quit";
+            }
+        }
+       
+    }
+    return 0;
+}
